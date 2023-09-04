@@ -1,2 +1,2 @@
-export {type InputTypes } from './InpuTypes';
-export {type ButtonTypes} from './ButtonTypes'
+export { type InputTypes } from './InpuTypes';
+export { type ButtonTypes } from './ButtonTypes';

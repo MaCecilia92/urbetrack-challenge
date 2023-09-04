@@ -1,10 +1,10 @@
 import { type FC } from 'react';
-import { type InputTypes } from '../../interfaces/index';
 
 import loginValidatinSchema from '../../schemas/loginForm';
 import { useFormik } from 'formik';
 
 import { Input, Button } from '../../common';
+import { getFormsInputs } from '../../utils';
 
 export const LoginForm: FC = () => {
 	const formik = useFormik({
@@ -18,35 +18,12 @@ export const LoginForm: FC = () => {
 		},
 	});
 
-	const InputFields: InputTypes[] = [
-		{
-			id: 'email',
-			name: 'email',
-			label: 'email',
-			value: formik.values.email,
-			handleChange: formik.handleChange,
-			handleBlur: formik.handleBlur,
-			error: formik.touched.email === true && Boolean(formik.errors.email),
-			helperText: formik.touched.email === true && formik.errors.email,
-		},
-
-		{
-			id: 'password',
-			name: 'password',
-			label: 'password',
-			value: formik.values.password,
-			handleChange: formik.handleChange,
-			handleBlur: formik.handleBlur,
-			error:
-				formik.touched.password === true && Boolean(formik.errors.password),
-			helperText: formik.touched.password === true && formik.errors.password,
-		},
-	];
+	const fields = getFormsInputs(formik);
 
 	return (
 		<>
 			<form onSubmit={formik.handleSubmit}>
-				{InputFields.map(item => (
+				{fields.map(item => (
 					<Input
 						key={item.id}
 						id={item.id}

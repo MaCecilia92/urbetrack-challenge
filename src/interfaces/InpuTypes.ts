@@ -1,4 +1,4 @@
-import { type ChangeEvent} from 'react';
+import { type ChangeEvent } from 'react';
 
 export interface InputTypes {
 	id: string;
@@ -11,5 +11,5 @@ export interface InputTypes {
 	handleBlur: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 	error: any;
 	helperText: any;
-	type?: string | undefined
+	type?: string | undefined;
 }
