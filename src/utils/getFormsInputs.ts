@@ -4,6 +4,7 @@ import { type FormikProps } from 'formik';
 interface FormValues {
 	email: string;
 	password: string;
+	expirationTime: number;
 }
 
 export const getFormsInputs = (

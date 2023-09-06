@@ -1,20 +1,39 @@
-import { type FC } from 'react';
+import { type FC, useEffect } from 'react';
+import { type User } from '../../state/Session/initialState';
 
 import loginValidatinSchema from '../../schemas/loginForm';
 import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
 
 import { Input, Button } from '../../common';
-import { getFormsInputs } from '../../utils';
+import { getFormsInputs, checkSessionExpiration } from '../../utils';
+import { setDataRequest } from '../../state/Session/reducer';
+// import { selectSession } from '../../state/Session/selectors';
 
 export const LoginForm: FC = () => {
+	const dispatch = useDispatch();
+	// const user = useSelector(selectSession);
+
+	// console.log(user, 'user');
+
+	useEffect(() => {
+		checkSessionExpiration();
+	}, []);
+
 	const formik = useFormik({
 		initialValues: {
 			email: 'foobar@example.com',
 			password: 'foobar',
+			expirationTime: 0,
 		},
 		validationSchema: loginValidatinSchema,
-		onSubmit: values => {
-			alert(JSON.stringify(values, null, 2));
+		onSubmit: (values: User) => {
+			const newUser = {
+				email: values.email,
+				password: values.password,
+				expirationTime: new Date().getTime() + 2 * 60 * 1000,
+			};
+			dispatch(setDataRequest(newUser));
 		},
 	});
 
