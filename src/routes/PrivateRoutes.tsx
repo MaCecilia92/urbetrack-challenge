@@ -5,5 +5,5 @@ import { useLocalStorage } from '../hooks';
 export const PrivateRoutes: FC = () => {
 	const [data] = useLocalStorage<any>('session');
 
-	return data != null ? <Outlet /> : <Navigate to='./Login' />;
+	return data != null ? <Outlet /> : <Navigate to='/Login' />;
 };

@@ -8,13 +8,11 @@ import { useDispatch } from 'react-redux';
 import { Input, Button } from '../../common';
 import { getFormsInputs, checkSessionExpiration } from '../../utils';
 import { setDataRequest } from '../../state/Session/reducer';
-// import { selectSession } from '../../state/Session/selectors';
+import { useNavigate } from 'react-router-dom';
 
 export const LoginForm: FC = () => {
 	const dispatch = useDispatch();
-	// const user = useSelector(selectSession);
-
-	// console.log(user, 'user');
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		checkSessionExpiration();
@@ -34,6 +32,7 @@ export const LoginForm: FC = () => {
 				expirationTime: new Date().getTime() + 2 * 60 * 1000,
 			};
 			dispatch(setDataRequest(newUser));
+			navigate('/Gallery');
 		},
 	});
 
