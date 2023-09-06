@@ -5,11 +5,9 @@ export interface InputTypes {
 	name: string;
 	label: string;
 	value: string;
-	handleChange: (
-		e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-	) => void;
-	handleBlur: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-	error: any;
-	helperText: any;
+	handleChange: (e:any) => void;
+	handleBlur?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+	error?: any;
+	helperText?: any;
 	type?: string | undefined;
 }
