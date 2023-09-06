@@ -3,7 +3,7 @@ import { type User } from '../state/Session/initialState';
 export const checkSessionExpiration = (): void => {
 	const sessionDataStr = localStorage.getItem('session');
 
-	if (sessionDataStr != null) {
+	if (sessionDataStr !== null && sessionDataStr!== undefined ) {
 		const sessionData: User = JSON.parse(sessionDataStr);
 		const { expirationTime } = sessionData;
 		const currentTime = new Date().getTime();
