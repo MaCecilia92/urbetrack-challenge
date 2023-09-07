@@ -1,20 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, type Dispatch, type SetStateAction } from 'react';
 
-export const useLocalStorage = <T>(key: string, initialValue?: T): [T, (value: T) => void] => {
-  const storedValue = localStorage.getItem(key);
+type SetValue<T> = Dispatch<SetStateAction<T>>;
 
-  const initial = storedValue !== null && storedValue !== undefined ? JSON.parse(storedValue) : initialValue;
-
-  const [value, setValue] = useState<T>(initial);
+export const useLocalStorage = <T>(key = 'defaultKey', initialValue: T[] = []): [T[], SetValue<T[]>] => {
+  const [value, setValue] = useState<T[]>(() => {
+    const storedValue = localStorage.getItem(key);
+    return storedValue !=null ? JSON.parse(storedValue) : initialValue;
+  });
 
   useEffect(() => {
-    if(value !== null && value !== undefined ){
-      localStorage.setItem(key, JSON.stringify(value));
-    }
-    
+    localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
 
-  return [value, setValue];
+  const updateValue: SetValue<T[]> = (newValue) => {
+    setValue((prevValue) => {
+      if (Array.isArray(prevValue)) {
+        return [...prevValue, ...newValue as []];
+      }
+      return [prevValue, ...newValue as []];
+    });
+  };
+
+  return [value, updateValue];
 };
+
+
 
 

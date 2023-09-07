@@ -3,21 +3,12 @@ import {call, takeLatest,put} from 'redux-saga/effects'
 import { type User } from './initialState';
 import { type PayloadAction } from '@reduxjs/toolkit';
 import * as actions from './reducer';
-
-
-function saveDataToLocalStorage(data: User) {
-  const dataString = JSON.stringify(data);
-  localStorage.setItem('session', dataString);
-}
-
-function deleteDataToLocalStorage() {
-  localStorage.removeItem('session');
-}
+import { saveDataToLocalStorage, deleteFromLocalStorage } from '../Helper';
 
 
 function* setDatatoLocalStorage({ payload }: PayloadAction<User>) {
   try {
-    yield call(saveDataToLocalStorage, payload);
+    yield call(saveDataToLocalStorage, payload, 'session');
     console.log(payload, 'payload');
     yield put(actions.setDataSuceeded(payload));
   } catch (err) {
@@ -28,7 +19,7 @@ function* setDatatoLocalStorage({ payload }: PayloadAction<User>) {
 
 function* removeDatatoLocalStorage() {
   try {
-    yield call(deleteDataToLocalStorage);
+    yield call(deleteFromLocalStorage, 'session');
   } catch (err) {
     yield put(actions.setDataError(err as string));
     console.error('Error on remove item:', err);

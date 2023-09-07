@@ -1,5 +1,7 @@
 import { type FC, useState } from 'react';
 import { Button, InputFile, Input } from '../../common';
+import { GalleryCard } from '../GalleryCard/GallertCard';
+import { useLocalStorage } from '../../hooks';
 
 export interface imagesArrayProps {
 	image?: string;
@@ -16,8 +18,9 @@ export const GalleryAddImage: FC = () => {
 	const [value, setValue] = useState('');
 	const [currentId, setCurrentId] = useState<number>(0);
 
+	const [, setData] = useLocalStorage<any>('images');
+
 	const getNewId = (): number => {
-		// Increment the currentId and update it
 		const newId = currentId + 1;
 		setCurrentId(newId);
 		return newId;
@@ -61,18 +64,8 @@ export const GalleryAddImage: FC = () => {
 	};
 
 	const handleClick = (): void => {
-		// Load existing images from localStorage or initialize an empty array
-		const existingImagesJSON = localStorage.getItem('images');
-		const existingImages =
-			existingImagesJSON != null ? JSON.parse(existingImagesJSON) : [];
-		const updatedImageArray = { ...imageArray, description: value };
-
-		// Push it into the existingImages array
-		existingImages.push(updatedImageArray);
-
-		// Store the updated array back in localStorage
-		localStorage.setItem('images', JSON.stringify(existingImages));
-
+		const updatedImageArray = [{ ...imageArray, description: value }];
+		setData(updatedImageArray);
 		handleDelete();
 	};
 
@@ -104,6 +97,7 @@ export const GalleryAddImage: FC = () => {
 			) : (
 				<h1>No hay imagen</h1>
 			)}
+			<GalleryCard />
 		</>
 	);
 };
