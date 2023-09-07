@@ -1,3 +1,4 @@
 export * from './defaultStatus';
-export * from './deleteDataFromLocalStorage';
+export * from './deleteFromLocalStorage';
 export * from './saveDataToLocalstorage';
+export * from './getDataFromLocalStorage';

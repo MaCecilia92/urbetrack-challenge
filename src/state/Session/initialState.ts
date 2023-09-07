@@ -10,8 +10,8 @@ export interface SessionState {
 	status: ReturnType<typeof getDefaultStatus>;
 	isLoading: boolean;
 	users: User | [];
-  isAuthenticated: boolean
-  error: string
+  	isAuthenticated: boolean
+  	error: string
 }
 
 export const sessionUser: SessionState = {

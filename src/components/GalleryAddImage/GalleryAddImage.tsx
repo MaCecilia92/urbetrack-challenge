@@ -1,6 +1,5 @@
 import { type FC, useState } from 'react';
 import { Button, InputFile, Input } from '../../common';
-import { GalleryCard } from '../GalleryCard/GallertCard';
 import { useLocalStorage } from '../../hooks';
 
 export interface imagesArrayProps {
@@ -97,7 +96,6 @@ export const GalleryAddImage: FC = () => {
 			) : (
 				<h1>No hay imagen</h1>
 			)}
-			<GalleryCard />
 		</>
 	);
 };

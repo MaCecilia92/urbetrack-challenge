@@ -17,8 +17,8 @@ const sessionSlice = createSlice({
       state.isAuthenticated=true
     },
     setDataError:(state, action: PayloadAction<string>) => {
-      state.error= action.payload
-      state.isLoading = true
+      state.error= 'Error'
+      state.isLoading = false
       state.isAuthenticated=false
     },
     clearData: (state) => {
